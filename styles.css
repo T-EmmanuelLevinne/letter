@@ -1,0 +1,514 @@
+:root {
+  --bg: #f5f0e0;           /* warm background */
+  --paper: #fff8c9;        /* yellow pad paper */
+  --paper-lines: #d6c27a;  /* darker ruling for better contrast */
+  --paper-margin: #f0b9a2; /* red-ish margin line */
+  --accent: #4a5568;
+  --muted: #a0aec0;
+  --border-soft: #e2e8f0;
+  --shadow-soft: 0 18px 40px rgba(99, 81, 46, 0.35);
+  --radius-paper: 16px;
+  --radius-modal: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Caveat", "Patrick Hand", system-ui, cursive, sans-serif;
+  background:
+    radial-gradient(circle at top left, #fdf7e8, var(--bg)),
+    radial-gradient(circle at bottom right, #f5ecd6, #f2e4c2);
+  color: #1a202c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.app-shell {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-bar {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.top-inner {
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: auto;
+}
+
+.brand {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.view-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.view-info i {
+  color: #718096;
+}
+
+.admin-button {
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #4a5568;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(148, 163, 184, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.admin-button i {
+  font-size: 0.9rem;
+}
+
+.admin-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(148, 163, 184, 0.5);
+  background: #ffffff;
+}
+
+.admin-button:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(148, 163, 184, 0.45);
+}
+
+.paper-wrapper {
+  width: 100%;
+  max-width: 720px;
+}
+
+.paper {
+  background: var(--paper);
+  border-radius: var(--radius-paper);
+  box-shadow: var(--shadow-soft);
+  padding: 32px 28px 28px;
+  border: 1px solid rgba(209, 179, 94, 0.6);
+  position: relative;
+}
+
+.paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 248, 201, 0.96),
+    rgba(252, 241, 192, 0.98)
+  );
+  opacity: 0.92;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.paper-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 10px;
+}
+
+.paper-title {
+  font-family: "Patrick Hand", "Caveat", cursive, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5b4630;
+}
+
+/* viewer label and name removed visually on request */
+
+.note-content {
+  font-family: "Caveat", cursive, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #3f3427;
+  margin-bottom: 24px;
+  white-space: pre-wrap;
+}
+
+.note-content p + p {
+  margin-top: 1em;
+}
+
+.note-content {
+  background-image: linear-gradient(
+    to bottom,
+    transparent 26px,
+    var(--paper-lines) 27px
+  );
+  background-size: 100% 27px;
+  padding: 14px 14px 16px 26px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.note-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 18px;
+  width: 1px;
+  background: var(--paper-margin);
+  opacity: 0.8;
+}
+
+/* Comment section */
+.comment-section {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(209, 179, 94, 0.5);
+}
+
+.comment-label {
+  font-family: "Patrick Hand", "Caveat", cursive, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #5b4630;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.comment-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-input {
+  flex: 1;
+  font-family: "Caveat", cursive, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 16px 18px;
+  min-height: 120px;
+  max-height: 240px;
+  border-radius: 0;
+  border: 1px solid rgba(209, 179, 94, 0.7);
+  background: rgba(255, 255, 255, 0.7);
+  color: #3f3427;
+  outline: none;
+  resize: vertical;
+  overflow-y: auto;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comment-input::placeholder {
+  color: #9a8b6e;
+}
+
+.comment-input:focus {
+  border-color: #c4a84a;
+  box-shadow: 0 0 0 2px rgba(196, 168, 74, 0.25);
+}
+
+.comment-send-btn {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  color: #5b4630;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(99, 81, 46, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.comment-send-btn:hover {
+  transform: translateX(2px);
+  box-shadow: 0 6px 18px rgba(99, 81, 46, 0.35);
+  background: #fffef8;
+}
+
+.comment-send-btn:active {
+  transform: translateX(0) scale(0.98);
+}
+
+.comment-send-btn i {
+  font-size: 1rem;
+}
+
+.comment-feedback {
+  font-family: "Patrick Hand", "Caveat", cursive, sans-serif;
+  font-size: 0.95rem;
+  color: #6b5344;
+  margin-top: 8px;
+  min-height: 20px;
+}
+
+.note-footer {
+  font-size: 0.8rem;
+  color: #a0aec0;
+  text-align: right;
+}
+
+.viewer-section {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.viewer-section-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.viewer-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+
+.viewer-list li {
+  background: rgba(226, 232, 240, 0.8);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 0.85rem;
+  color: #2d3748;
+}
+
+.viewer-empty {
+  font-size: 0.85rem;
+  color: #a0aec0;
+  margin-top: 4px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal {
+  width: 100%;
+  max-width: 360px;
+  background: var(--paper);
+  border-radius: var(--radius-modal);
+  padding: 130px 50px 130px;
+  box-shadow: 0 18px 40px rgba(99, 81, 46, 0.5);
+  border: 1px solid rgba(209, 179, 94, 0.8);
+  position: relative;
+  overflow: hidden;
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 26px,
+    var(--paper-lines) 27px
+  );
+  background-size: 100% 27px;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.modal::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 16px;
+  width: 1px;
+  background: var(--paper-margin);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.modal-title {
+  font-family: "Patrick Hand", "Caveat", cursive, sans-serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #1a202c;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-subtitle {
+  font-size: 2.1rem;
+  color: #718096;
+  margin-bottom: 12px;
+}
+
+.field-label {
+  font-family: "Patrick Hand", "Caveat", cursive, sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  color: #5b4630;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.text-input {
+  width: 100%;
+  padding: 9px 11px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e0;
+  font-family: "Caveat", "Patrick Hand", cursive, sans-serif;
+  font-size: 1.1rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background: rgba(255, 255, 255, 0.9);
+  position: relative;
+  z-index: 1;
+}
+
+.text-input:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Modal continue button: circle arrow */
+#who-submit-btn.comment-send-btn {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.btn {
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-primary {
+  background: var(--paper);
+  color: #5b4630;
+  border: 1px solid rgba(209, 179, 94, 0.9);
+  box-shadow: 0 6px 18px rgba(99, 81, 46, 0.4);
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: #fff5c8;
+  box-shadow: 0 8px 22px rgba(99, 81, 46, 0.5);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #718096;
+}
+
+.error-text {
+  font-size: 0.8rem;
+  color: #e53e3e;
+  margin-top: 4px;
+  min-height: 16px;
+}
+
+@media (max-width: 640px) {
+  .paper {
+    padding: 22px 16px 18px;
+  }
+
+  .modal {
+    padding: 48px 18px 22px;
+  }
+
+  .paper-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .top-bar {
+    top: 8px;
+  }
+
+  .admin-button {
+    padding-inline: 10px;
+  }
+
+  .comment-row {
+    gap: 8px;
+  }
+
+  .comment-send-btn {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
